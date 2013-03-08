@@ -55,6 +55,13 @@ public class Descriptor {
         append(text);
     }
 
+    // Descriptor for mapping to new parser
+    public Descriptor(String text, ArrayList<Token> tokens, String pattern){
+    this.text.append(text);
+    this.tokens.addAll(tokens);
+    this.pattern.append(pattern);
+    }
+
     public void append(String text) throws SyntaxError {
         this.text.append(text);
         TokenReader reader = new TokenReader(new StringReader(text));
