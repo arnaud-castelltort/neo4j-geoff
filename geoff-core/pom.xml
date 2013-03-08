@@ -16,6 +16,8 @@
 
   <properties>
     <bundle.namespace>org.neo4j.visualization</bundle.namespace>
+    <scala.version>2.10.0</scala.version>
+     <scala-test-compile-phase>none</scala-test-compile-phase>
   </properties>
   <licenses>
     <license>
@@ -51,6 +53,11 @@ the relevant Commercial Agreement.
       <groupId>org.neo4j</groupId>
       <artifactId>neo4j</artifactId>
       <version>1.9-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>org.scala-lang</groupId>
+      <artifactId>scala-library</artifactId>
+      <version>${scala.version}</version>
     </dependency>
     <dependency>
       <groupId>org.neo4j</groupId>
@@ -92,7 +99,33 @@ the relevant Commercial Agreement.
           <argLine>-Xms512m -Xmx2012m</argLine>
         </configuration>
       </plugin>
-
+      <plugin>
+        <groupId>org.scala-tools</groupId>
+        <artifactId>maven-scala-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>scala-compile</id>
+            <goals>
+              <goal>add-source</goal>
+              <goal>compile</goal>
+            </goals>
+            <phase>process-resources</phase>
+          </execution>
+          <execution>
+            <id>scala-test-compile</id>
+            <phase>${scala-test-compile-phase}</phase>
+            <goals>
+              <goal>testCompile</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <jvmArgs>
+            <jvmArg>-Xms64m</jvmArg>
+            <jvmArg>-Xmx1024m</jvmArg>
+          </jvmArgs>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
 </project>
